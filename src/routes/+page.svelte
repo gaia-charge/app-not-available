@@ -47,6 +47,7 @@
 		if (!searchTerm) return;
 
 		const appId = extractAppId(searchTerm);
+		const time = Date.now();
 		if (!appId) {
 			errorMessage = 'Please enter a valid Apple App Store URL or numeric App ID';
 			return;
@@ -61,7 +62,7 @@
 			loadingStates[region.code] = true; // Set loading state for this region
 			try {
 				const response = await fetch(
-					`https://itunes.apple.com/lookup?id=${appId}&country=${region.code}`
+					`https://itunes.apple.com/lookup?id=${appId}&country=${region.code}&rand=${time}`
 				);
 				const data = await response.json();
 				searchResults[region.code] = data.resultCount > 0;
